@@ -1,94 +1,125 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
-  <head>
-    <title>{Title}{block:PostTitle} - {PostTitle}{/block:PostTitle}</title>
-    <link rel="icon" href="{Favicon}"/>
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="{RSS}"/>
-    <meta name="viewport" content="width=775"/> <!-- iPhone -->
-    <meta name="font:Body" content="Arial, Helvetica, sans-serif"/>
-    {block:Description}<meta name="description" content="{MetaDescription}" />{/block:Description}
-    
-    <script type="text/javascript" src="http://codysherman.tumblr.com/tools/infinite-scrolling/code"></script>
-    
-    <style type="text/css">
-        .footer { margin: 25px 0px; }
-        .wrapper { width: 520px; margin: auto; margin-top: 180px; font-size: 14px; font-family: {font:Body};}
-    </style>
-    
-  </head>
-  
-  <body>
-    <div class="wrapper">
-      <div class="main">
-        {block:SearchPage}
-        <div class="post">
-          <div class="datetime">
-            {lang:SearchResultCount results}
-          </div>
-          {lang:Search results for SearchQuery 2}</h2>
+    <head>
+
+        <title>{Title}{block:PostTitle} - {PostTitle}{/block:PostTitle}</title>
+
+        <link rel="icon" href="{Favicon}"/>
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="{RSS}"/>
+
+        <meta name="viewport" content="width=775"/> <!-- iPhone -->
+        <meta name="color:Background Color" content="#fff"/>
+        <meta name="font:Font Family" content="Helvetica"/>
+        <meta name="color:Font Color" content="#000"/>
+        <meta name="color:Links Color" content="#000"/>
+        <meta name="text:Copyright" content="John Doe"/>
+        <meta name="text:Copyright URL" content="http://johndoe.com"/>
+        <meta name="if:Show Archive" content="0"/>
+        <meta name="if:Show Date" content="1"/>
+        <meta name="if:Show Author" content="0"/>
+        {block:Description}<meta name="description" content="{MetaDescription}" />{/block:Description}
+
+        <script type="text/javascript" src="http://codysherman.tumblr.com/tools/infinite-scrolling/code"></script>
+
+        <style type="text/css">
+            body { color:{color:Font Color}; background-color: {color:Background Color};}
+            h1 { margin-bottom: 10px; font-size: 45px; }
+            a { text-decoration: none; font-weight: bold; color: {color:Links Color}; }
+
+            .wrapper { width: 520px; margin: auto; margin-top: 100px; font-size: 14px; font-family: {font:Font Family};}
+            .header { margin-bottom: 70px;  }
+            .post { margin-bottom: 0px; }
+            .footer { margin: 25px 0px; }
+            .post { margin-bottom: 60px; }
+        </style>
+
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <div class="header">
+                <h1>{Title}</h1>
+                {block:IfShowArchive}
+                <a href="/archive">Archive</a>
+                {/block:IfShowArchive}
+            </div>
+            <div class="main">
+            {block:SearchPage}
+            <div class="post">
+              <div class="datetime">
+                {lang:SearchResultCount results}
+              </div>
+              {lang:Search results for SearchQuery 2}</h2>
+            </div>
+            {/block:SearchPage}
+
+            <div class = "autopagerize_page_element" >
+                {block:Posts}
+                <div class="post">
+
+                    {block:Regular}
+                      {block:Title}<h2>{Title}</h2>{/block:Title}
+                      <p style="regular_post_body">{Body}</p>
+                    {/block:Regular}
+
+                    {block:Photo}
+                      <span class="photo">{LinkOpenTag}<img src="{PhotoURL-500}" alt="{PhotoAlt}" title="{PhotoAlt}">{LinkCloseTag}</span>
+                      <p>{Caption}</p>
+                    {/block:Photo}
+
+                    {block:Quote}
+                      <p><span class="{Length}_quote">{Quote}</span></p>
+                      {block:Source}<p>&mdash;&nbsp;{Source}</p>{/block:Source}
+                    {/block:Quote}
+
+                    {block:Video}
+                      {Video-500}
+                      <p>{Caption}</p>
+                    {/block:Video}
+
+                    {block:Audio}
+                      {AudioPlayerGrey}
+                      <p>{Caption}</p>
+                    {/block:Audio}
+
+                    {block:Link}
+                      <h2><a href="{URL}" {Target}>{Name}</a>&nbsp;&rarr;</h2>
+                      {block:Description}<p>{Description}</p>{/block:Description}
+                    {/block:Link}
+
+                    {block:Conversation}
+                      {block:Title}<h2>{Title}</h2>{/block:Title}
+                      <p>
+                      {block:Lines}
+                      {block:Label}<strong>{Label}</strong>{/block:Label} {Line}<br />
+                      {/block:Lines}
+                      </p>
+                    {/block:Conversation}
+
+                    {block:IfShowDate}
+                    {block:Date}
+                    <div>{DayOfMonth} {Month} {Year} {block:IfShowAuthor}| <a href="{PostAuthorURL}"><b>{PostAuthorName}</b></a>{/block:IfShowAuthor}</div>
+                    {/block:Date}
+                    {/block:IfShowDate}
+
+                </div>
+                {/block:Posts}
+            </div>
+
+            <div class="footer">
+                Copyright <a href="{text:Copyright URL}">{text:Copyright}</a> | Theme <a href="https://github.com/douglaslassance/simplr">Simplr</a>.
+            </div>
+
+            {block:PermalinkPage}
+            {block:PostNotes}
+            <div class="post">
+              <h3>{lang:Notes}</h3>
+              <p>{PostNotes}</p>
+            </div>
+            {/block:PostNotes}
+            {/block:PermalinkPage}
         </div>
-        {/block:SearchPage}
-        
-        <div class = "autopagerize_page_element" >
-        {block:Posts}
-        <div class="post">
+    </body>
 
-        {block:Regular}
-          {block:Title}<h2>{Title}</h2>{/block:Title}
-          <p style="regular_post_body">{Body}</p>
-        {/block:Regular}
-
-        {block:Photo}
-          <span class="photo">{LinkOpenTag}<img src="{PhotoURL-500}" alt="{PhotoAlt}" title="{PhotoAlt}">{LinkCloseTag}</span>
-          <p>{Caption}</p>
-        {/block:Photo}
-
-        {block:Quote}
-          <p><span class="{Length}_quote">{Quote}</span></p>
-          {block:Source}<p>&mdash;&nbsp;{Source}</p>{/block:Source}
-        {/block:Quote}
-
-        {block:Video}
-          {Video-500}
-          <p>{Caption}</p>
-        {/block:Video}
-
-        {block:Audio}
-          {AudioPlayerGrey}
-          <p>{Caption}</p>
-        {/block:Audio}
-
-        {block:Link}
-          <h2><a href="{URL}" {Target}>{Name}</a>&nbsp;&rarr;</h2>
-          {block:Description}<p>{Description}</p>{/block:Description}
-        {/block:Link}
-
-        {block:Conversation}
-          {block:Title}<h2>{Title}</h2>{/block:Title}
-          <p>
-          {block:Lines}
-          {block:Label}<strong>{Label}</strong>{/block:Label} {Line}<br />
-          {/block:Lines}
-          </p>
-        {/block:Conversation}
-        </div>
-        {/block:Posts}
-        </div>
-        
-        <div class="footer">
-            Copyright Douglas Lassance&copy;.
-        </div>
-
-        {block:PermalinkPage}
-        {block:PostNotes}
-        <div class="post">
-          <h3>{lang:Notes}</h3>
-          <p>{PostNotes}</p>
-        </div>
-        {/block:PostNotes}
-        {/block:PermalinkPage}
-    </div>
-  </body>
-  
 </html>
